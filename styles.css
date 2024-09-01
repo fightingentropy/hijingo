@@ -6,6 +6,9 @@ html {
   padding: 0;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .video-background {
@@ -16,6 +19,11 @@ html {
   height: 100%;
   overflow: hidden;
   z-index: -1;
+}
+
+.landing-text {
+  color: white;
+  text-align: center;
 }
 
 #background-video {
