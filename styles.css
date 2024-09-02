@@ -44,7 +44,26 @@ html {
   z-index: 1;
   color: white;
   text-align: center;
-  padding-top: 20%;
+  /* padding-top: 20%; */
+  text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black,
+    -2px 2px 0 black;
+}
+
+.on-top {
+  margin: 20px 0; /* Adjust as necessary for spacing */
+  
+}
+
+.custom-link {
+  color: white;
+  font-size: 1.5em; /* Increase font size */
+  text-decoration: none; /* Optional: remove underline */
+  text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black,
+    -2px 2px 0 black;
+}
+
+.custom-link:hover {
+  text-decoration: underline; /* Optional: add underline on hover */
 }
 
 h1 {
