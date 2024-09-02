@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building Item Locator</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hijingo Item Locator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        #search-bar {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        #results {
-            list-style-type: none;
-            padding: 0;
-        }
-        #results li {
-            padding: 10px;
-            background-color: #f4f4f4;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      #search-bar {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      #results {
+        list-style-type: none;
+        padding: 0;
+      }
+      #results li {
+        padding: 10px;
+        background-color: #f4f4f4;
+        margin-bottom: 10px;
+        border-radius: 4px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>Find Items in the Building</h1>
-    <input type="text" id="search-bar" placeholder="Search for an item...">
+    <input type="text" id="search-bar" placeholder="Search for an item..." />
     <ul id="results"></ul>
 
     <script>
-        const items = {
-            "Printer": "Room 101",
-            "Projector": "Conference Room",
-            "Coffee Machine": "Pantry",
-            "Fire Extinguisher": "Hallway, 2nd Floor",
-            "Whiteboard": "Room 204",
-            "First Aid Kit": "Reception",
-            "Water Cooler": "Pantry",
-            "Laptop": "Room 105",
-            "WiFi Router": "Server Room",
-            "Office Supplies": "Storage Room"
-        };
+      const items = {
+        Printer: 'Room 101',
+        Projector: 'Conference Room',
+        'Coffee Machine': 'Pantry',
+        'Fire Extinguisher': 'Hallway, 2nd Floor',
+        Whiteboard: 'Room 204',
+        'First Aid Kit': 'Reception',
+        'Water Cooler': 'Pantry',
+        Laptop: 'Room 105',
+        'WiFi Router': 'Server Room',
+        'Office Supplies': 'Storage Room',
+      };
 
-        document.getElementById('search-bar').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const resultsList = document.getElementById('results');
-            resultsList.innerHTML = '';
+      document
+        .getElementById('search-bar')
+        .addEventListener('input', function () {
+          const query = this.value.toLowerCase();
+          const resultsList = document.getElementById('results');
+          resultsList.innerHTML = '';
 
-            for (const item in items) {
-                if (item.toLowerCase().includes(query)) {
-                    const li = document.createElement('li');
-                    li.textContent = `${item} - Location: ${items[item]}`;
-                    resultsList.appendChild(li);
-                }
+          for (const item in items) {
+            if (item.toLowerCase().includes(query)) {
+              const li = document.createElement('li');
+              li.textContent = `${item} - Location: ${items[item]}`;
+              resultsList.appendChild(li);
             }
+          }
         });
     </script>
-
-</body>
+  </body>
 </html>
