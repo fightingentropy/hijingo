@@ -1,0 +1,38 @@
+@import url('https://fonts.cdnfonts.com/css/cheyenne-sans-novus');
+
+body {
+  background-image: url('/files/hijingo.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Cheyenne Sans Novus', sans-serif;
+  color: white;
+  font-size: 28px;
+}
+
+div {
+  text-align: center;
+  margin-top: 50px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-style: italic;
+}
+
+a:hover {
+  background-color: red; /* Add a background color on hover */
+  padding: 2px 4px; /* Add some padding to make the highlight more visible */
+  border-radius: 12px; /* Makes the highlight rounded */
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  padding: 10px 0; /* Adds 10px of padding above and below each li item */
+}
