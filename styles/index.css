@@ -1,5 +1,17 @@
 @import url('https://fonts.cdnfonts.com/css/sugar-bomb');
 
+/* Add these styles at the beginning of the file */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background-image: url('/files/hijingo.webp');
   background-size: cover;
@@ -7,9 +19,12 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: 'Sugar Bomb', sans-serif;
-
   color: white;
   font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Change this from center to flex-start */
+  padding-top: 5vh; /* Add some padding at the top */
 }
 
 div {
@@ -32,6 +47,7 @@ a:hover {
 ul {
   list-style-type: none;
   padding-left: 0;
+  margin-top: 40px; /* Add this line to create space above the list */
 }
 
 li {
@@ -45,6 +61,7 @@ li {
   position: relative;
   display: inline-block;
   overflow: hidden;
+  margin-bottom: 40px; /* Add this line to create space below the h1 */
 }
 
 .shine-text::before {
@@ -75,3 +92,36 @@ li {
     left: 100%;
   }
 }
+
+/* Remove the .slick-button styles */
+
+#about-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  position: fixed; /* Change this from absolute to fixed */
+  bottom: 20px;
+  right: 20px;
+}
+
+#about-button:hover {
+  background-color: darkred;
+}
+
+/* Remove the .bottom-right class as it's no longer needed */
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  /* Remove any vertical margin or padding here if present */
+}
+
+/* Remove the .top-right class as it's no longer needed */
