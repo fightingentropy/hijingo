@@ -8,10 +8,13 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
-    <link rel="stylesheet" href="/about/assets/main.css" />
-    <noscript
-      ><link rel="stylesheet" href="/about/assets/noscript.css"
-    /></noscript>
+    <link rel="stylesheet" href="styles/about.css" />
+    <noscript><link rel="stylesheet" href="styles/noscript.css" /></noscript>
+    <style>
+      body {
+        background-color: lightblue;
+      }
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
@@ -54,7 +57,7 @@
         <section>
           <a href="#" class="image"
             ><img
-              src="/about/images/pic01.jpg"
+              src="/assets/images/pic01.jpg"
               alt=""
               data-position="center center"
           /></a>
@@ -69,7 +72,7 @@
               </p>
               <ul class="actions">
                 <li>
-                  <a href="/about/generic.html" class="button">Learn more</a>
+                  <a href="#" class="button">Learn more</a>
                 </li>
               </ul>
             </div>
@@ -78,7 +81,7 @@
         <section>
           <a href="#" class="image"
             ><img
-              src="/about/images/pic02.jpg"
+              src="/assets/images/pic02.jpg"
               alt=""
               data-position="top center"
           /></a>
@@ -92,7 +95,7 @@
               </p>
               <ul class="actions">
                 <li>
-                  <a href="/about/generic.html" class="button">Learn more</a>
+                  <a href="#" class="button">Learn more</a>
                 </li>
               </ul>
             </div>
@@ -100,7 +103,7 @@
         </section>
         <section>
           <a href="#" class="image"
-            ><img src="/about/images/pic03.jpg" alt="" data-position="25% 25%"
+            ><img src="/assets/images/pic03.jpg" alt="" data-position="25% 25%"
           /></a>
           <div class="content">
             <div class="inner">
@@ -112,7 +115,7 @@
               </p>
               <ul class="actions">
                 <li>
-                  <a href="/about/generic.html" class="button">Learn more</a>
+                  <a href="#" class="button">Learn more</a>
                 </li>
               </ul>
             </div>
@@ -181,7 +184,7 @@
             </section>
           </div>
           <ul class="actions">
-            <li><a href="/about/generic.html" class="button">Learn more</a></li>
+            <li><a href="#" class="button">Learn more</a></li>
           </ul>
         </div>
       </section>
@@ -201,15 +204,30 @@
                 <div class="fields">
                   <div class="field half">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" />
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      autocomplete="name"
+                    />
                   </div>
                   <div class="field half">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email" />
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      autocomplete="email"
+                    />
                   </div>
                   <div class="field">
                     <label for="message">Message</label>
-                    <textarea name="message" id="message" rows="5"></textarea>
+                    <textarea
+                      name="message"
+                      id="message"
+                      rows="5"
+                      autocomplete="off"
+                    ></textarea>
                   </div>
                 </div>
                 <ul class="actions">
