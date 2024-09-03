@@ -10,7 +10,7 @@
   </head>
   <body>
     <a href="index.html" id="home-button">Home</a>
-    <h1 class="shine-text">Find Items in the Building</h1>
+    <h1 class="shine-text"><span>Find Items in the Building</span></h1>
     <input type="text" id="search-bar" placeholder="Search for an item..." />
     <ul id="results"></ul>
 
@@ -43,6 +43,24 @@
             }
           }
         });
+
+      // Update this script for the shine effect
+      const shineText = document.querySelector('.shine-text span');
+      let canAnimate = true;
+
+      shineText.addEventListener('mouseenter', () => {
+        if (canAnimate) {
+          shineText.classList.add('animate');
+          canAnimate = false;
+          
+          setTimeout(() => {
+            shineText.classList.remove('animate');
+            setTimeout(() => {
+              canAnimate = true;
+            }, 2000); // 2 second delay before allowing animation again
+          }, 2000); // Remove class after animation completes
+        }
+      });
     </script>
   </body>
 </html>
