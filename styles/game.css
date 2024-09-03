@@ -1,0 +1,169 @@
+:root {
+    --bg-color: #333;
+    --text-color: #f0f0f0;
+    --cell-bg: #444;
+    --cell-border: #555;
+    --hover-color: #555;
+    --x-color: #ff6b6b;
+    --o-color: #4ecdc4;
+}
+
+.light-mode {
+    --bg-color: #f0f0f0;
+    --text-color: #333;
+    --cell-bg: #fff;
+    --cell-border: #ddd;
+    --hover-color: #e0e0e0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin-bottom: 20px;
+    position: relative; /* Add this line */
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: var(--cell-bg);
+    border: 2px solid var(--cell-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative; /* Add this line */
+}
+
+.cell:hover {
+    background-color: var(--hover-color);
+}
+
+.cell.x::before {
+    content: 'X';
+    color: var(--x-color);
+}
+
+.cell.o::before {
+    content: 'O';
+    color: var(--o-color);
+}
+
+.status {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--cell-bg);
+    color: var(--text-color);
+    border: 2px solid var(--cell-border);
+    margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: var(--hover-color);
+}
+
+#toggle-mode {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#toggle-mode:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.1);
+}
+
+.strike {
+    position: absolute;
+    background-color: var(--text-color);
+    transition: width 0.5s ease-in, height 0.5s ease-in;
+}
+
+.strike-row {
+    height: 4px;
+}
+
+.strike-column {
+    width: 4px;
+}
+
+.strike-diagonal-1, .strike-diagonal-2 {
+    height: 4px;
+}
+
+.strike-diagonal-1 {
+    transform: rotate(45deg);
+}
+
+.strike-diagonal-2 {
+    transform: rotate(-45deg);
+}
+
+/* Add these new styles at the end of the file */
+.winning-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.winning-message.show {
+    opacity: 1;
+    transform: scale(1);
+}
