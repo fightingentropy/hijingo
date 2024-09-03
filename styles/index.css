@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/cheyenne-sans-novus');
+@import url('https://fonts.cdnfonts.com/css/sugar-bomb');
 
 body {
   background-image: url('/files/hijingo.webp');
@@ -6,7 +6,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: 'Cheyenne Sans Novus', sans-serif;
+  font-family: 'Sugar Bomb', sans-serif;
+
   color: white;
   font-size: 28px;
 }
@@ -23,9 +24,9 @@ a {
 }
 
 a:hover {
-  background-color: red; /* Add a background color on hover */
-  padding: 2px 4px; /* Add some padding to make the highlight more visible */
-  border-radius: 12px; /* Makes the highlight rounded */
+  background-color: red;
+  padding: 2px 4px;
+  border-radius: 12px;
 }
 
 ul {
@@ -34,14 +35,13 @@ ul {
 }
 
 li {
-  padding: 10px 0; /* Adds 10px of padding above and below each li item */
+  padding: 10px 0;
 }
 
-/* Shine Effect for the H1 element */
 .shine-text {
-  font-size: 3rem; /* Adjust as needed */
+  font-size: 3rem;
   font-weight: bold;
-  color: white; /* Text color is now white */
+  color: white;
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -59,7 +59,7 @@ li {
     transparent,
     rgba(255, 0, 0, 0.8),
     transparent
-  ); /* Red shine effect */
+  );
   transform: skewX(-30deg);
 }
 

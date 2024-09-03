@@ -1,10 +1,10 @@
-@import url('https://fonts.cdnfonts.com/css/cheyenne-sans-novus');
+@import url('https://fonts.cdnfonts.com/css/sugar-bomb');
 
 body {
   padding: 20px;
   background-color: #f7f7f7;
   background-image: url('/files/hijingo.webp');
-  font-family: 'Cheyenne Sans Novus', sans-serif;
+  font-family: 'Sugar Bomb', sans-serif;
 }
 
 #home-button {
