@@ -1,10 +1,14 @@
 @import url('https://fonts.cdnfonts.com/css/sugar-bomb');
+@import url('https://fonts.cdnfonts.com/css/geometria');
 
 body {
   padding: 20px;
   background-color: #f7f7f7;
   background-image: url('/files/hijingo.webp');
   font-family: 'Sugar Bomb', sans-serif;
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
 }
 
 #home-button {
@@ -27,25 +31,36 @@ body {
   background-color: darkred;
 }
 
-h1 {
-  text-align: center;
-  font-size: 3em;
-  margin-bottom: 20px;
-  /* color: #444; */
-  color: white;
-}
-
 #search-bar {
+  position: absolute;
+  top: 180px; /* Reduced from 250px to 180px */
+  left: 50%;
+  transform: translateX(-50%);
   width: 50%; /* Adjusted width to be less wide */
   padding: 12px 20px;
   margin-bottom: 20px;
   font-size: 18px;
+  font-family: 'Geometria', sans-serif; /* Changed to Geometria */
   border: 2px solid #ccc;
   border-radius: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
   margin: 0 auto; /* Center the search bar */
   display: block; /* Ensures centering works properly */
+  color: white; /* Add this line to make the input text white */
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+  caret-color: white; /* Make the cursor white */
+}
+
+/* Update these rules for cross-browser compatibility */
+#search-bar::placeholder {
+  font-family: 'Geometria', sans-serif; /* Changed to Geometria */
+  color: #cccccc; /* Light grey color */
+}
+
+#search-bar::-webkit-input-placeholder {
+  font-family: 'Geometria', sans-serif; /* Changed to Geometria */
+  color: #cccccc;
 }
 
 #search-bar:focus {
@@ -55,26 +70,46 @@ h1 {
 }
 
 #results {
+  position: absolute;
+  top: 280px; /* Increased from 240px to 280px */
+  left: 0;
+  right: 0;
   list-style-type: none;
   margin-top: 20px;
   padding: 0;
 }
 
 #results li {
-  width: 50%; /* Match the width of the search bar */
-  padding: 15px 20px;
-  background-color: #fff;
-  margin-bottom: 20px; /* Adds space between the items */
-  border-radius: 20px; /* Increased border-radius for more rounded corners */
-  border-left: 4px solid #007bff;
+  width: 40%;
+  padding: 12px 16px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  margin-bottom: 15px;
+  border-radius: 30px; /* Matching the search bar's border-radius */
+  border: 2px solid #ccc; /* Matching the search bar's border */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  transition: all 0.3s ease-in-out;
   margin-left: auto;
-  margin-right: auto; /* Center the list items */
-  display: block; /* Ensure the items stack vertically */
+  margin-right: auto;
+  display: block;
+  color: white; /* White text */
+  font-size: 14px;
+  font-family: 'Geometria', sans-serif; /* Changed to Geometria */
 }
 
 #results li:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+  border-color: #007bff;
+}
+
+.shine-text {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0;
+  margin-top: 0;
+  margin-bottom: 20px;
+  width: 100%;
 }
