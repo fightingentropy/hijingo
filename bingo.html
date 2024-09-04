@@ -3,133 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Bingo Game</title>
+    <title>Hijingo | State of Play</title>
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
-    <style>
-      body {
-        font-family: 'Arial', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        background-color: #333333; /* Updated to dark grey */
-      }
-      .game-container {
-        background-color: #2c2c2c; /* Reverted back to the original darker shade */
-        border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        padding: 20px;
-        max-width: 400px;
-        width: 100%;
-      }
-      .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-      .game-number {
-        font-size: 1.2em;
-        font-weight: bold;
-        color: #ffffff; /* Changed to white */
-      }
-      .qr-code {
-        width: 50px;
-        height: 50px;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-        overflow: hidden;
-        border: 2px solid #000000; /* Added black border */
-      }
-
-      .qr-code img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .bingo-card {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* Changed from 5 to 4 columns */
-        gap: 10px;
-        margin-bottom: 20px;
-      }
-      .bingo-cell {
-        aspect-ratio: 1;
-        border: 2px solid #8b0000; /* Changed to dark red */
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.2em;
-        font-weight: bold;
-        color: #ffffff; /* Changed back to white */
-        background-color: #4a4a4a; /* Updated to a lighter shade */
-      }
-      .bingo-cell:hover:not(.marked) {
-        background-color: #4a4a4a;
-      }
-      .marked {
-        background-color: #ff0000 !important; /* Changed to standard red */
-        color: #ffffff; /* Keep this white for better contrast on red background */
-      }
-      #new-game {
-        width: 100%;
-        padding: 10px;
-        background-color: #8b0000; /* Changed to dark red */
-        color: #ffffff; /* Changed to white */
-        border: none;
-        border-radius: 5px;
-        font-size: 1em;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      #new-game:hover {
-        background-color: #660000; /* Even darker red on hover */
-      }
-
-      h1 {
-        color: #ffffff; /* Changed to white */
-        text-align: center;
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 2em; /* Adjust size as needed */
-      }
-
-      .win-message {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #8b0000;
-        padding: 20px;
-        border-radius: 10px;
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        z-index: 1000;
-      }
-    </style>
+    <link rel="stylesheet" href="/styles/bingo.css" />
   </head>
   <body>
+    <a href="index.html" class="home-button">⌂</a>
+    <button id="mode-toggle">🌓</button>
     <div class="game-container">
-      <h1>HIJINGO</h1>
-      <div class="card-header">
-        <div class="game-number" id="game-number"></div>
+      <div class="game-header">
+        <img src="/assets/favicon.ico" alt="Favicon" class="favicon" />
+        <h1>HIJINGO</h1>
         <div class="qr-code">
           <img
             src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=https://example.com/bingo"
             alt="QR Code"
           />
         </div>
+      </div>
+      <div class="card-header">
+        <div class="game-number" id="game-number"></div>
       </div>
       <div id="bingo-card" class="bingo-card"></div>
       <button id="new-game">New Game</button>
@@ -282,6 +175,22 @@
 
       // Initialize the game
       generateBingoCard();
+
+      const modeToggle = document.getElementById('mode-toggle');
+      const body = document.body;
+
+      modeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        localStorage.setItem(
+          'lightMode',
+          body.classList.contains('light-mode')
+        );
+      });
+
+      // Check for saved mode preference
+      if (localStorage.getItem('lightMode') === 'true') {
+        body.classList.add('light-mode');
+      }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   </body>
