@@ -46,18 +46,30 @@ function tokenDrinksMath(tokensPerPerson, totalCovers, totalTables) {
       ? _10PaxMultiplierPerToken.beer
       : (totalCovers / 10) * _10PaxMultiplierPerToken.beer;
 
-  // Calculate total red wines
-  const redWinesTotal = () =>
-    totalCovers <= 10
+  // Modify the red wine calculation
+  const redWinesTotal = () => {
+    if (tokensPerPerson === 1 || (tokensPerPerson === 2 && totalCovers < 25)) {
+      return 0;
+    }
+    return totalCovers <= 10
       ? _10PaxMultiplierPerToken.redWine
       : (totalCovers / 10) * _10PaxMultiplierPerToken.redWine;
+  };
 
-  // Calculate total white wines, subtracting red wines for covers > 10
-  const whiteWinesTotal = () =>
-    totalCovers <= 10
+  // Modify the white wine calculation to account for the changes in red wine
+  const whiteWinesTotal = () => {
+    const baseWhiteWine = totalCovers <= 10
       ? _10PaxMultiplierPerToken.whiteWine
-      : (totalCovers / 10) * _10PaxMultiplierPerToken.whiteWine -
-        redWinesTotal();
+      : (totalCovers / 10) * _10PaxMultiplierPerToken.whiteWine;
+    
+    // If there's no red wine, all wine is white
+    if (redWinesTotal() === 0) {
+      return baseWhiteWine;
+    }
+    
+    // Otherwise, subtract red wine from total wine
+    return baseWhiteWine - redWinesTotal();
+  };
 
   // Calculate total soft drinks
   const softDrinksTotal = () =>
