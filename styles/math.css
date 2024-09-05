@@ -1,0 +1,232 @@
+@import url('https://fonts.cdnfonts.com/css/geometria');
+
+body {
+  font-family: 'Geometria', Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+body.dark-mode {
+  background-color: #222;
+  color: #fff;
+}
+
+.header {
+  text-align: center;
+  margin-top: 60px; /* Add this line */
+  margin-bottom: 40px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-group label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.input-group input {
+  padding: 12px 15px;
+  width: 100%;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+body.dark-mode .input-group label {
+  color: #ddd;
+}
+
+body.dark-mode .input-group input {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .input-group input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+button {
+  margin: 10px 0;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px; /* Increased font size */
+  font-weight: bold; /* Optional: makes the text bold */
+}
+
+#result {
+  margin-top: 20px;
+  text-align: center;
+  display: none;
+}
+
+.result-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Increased gap between boxes */
+  flex-wrap: nowrap;
+  margin-top: 20px;
+  max-width: 800px; /* Added max-width to control overall width */
+  width: 100%;
+}
+
+.result-box {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 20px;
+  width: 48%; /* Slightly increased from 45% */
+  max-width: 380px; /* Increased from 300px */
+  min-width: 250px; /* Added min-width to prevent boxes from becoming too narrow */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+}
+
+.result-box h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-box h2 span {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+.result-box p {
+  margin: 5px 0;
+}
+
+body.dark-mode .result-box {
+  background-color: #333;
+  color: #fff;
+}
+
+.toggle-container {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 10px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.home-button {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Add a media query for smaller screens */
+@media (max-width: 768px) {
+  /* Increased from 600px to 768px */
+  .result-container {
+    flex-wrap: wrap;
+  }
+  .result-box {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.result-box p span + span,
+.result-box h2 span + span {
+  font-size: 0.8em;
+  color: #666;
+  margin-left: 5px;
+}
+
+body.dark-mode .result-box p span + span,
+body.dark-mode .result-box h2 span + span {
+  color: #aaa;
+}
