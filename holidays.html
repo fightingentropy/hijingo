@@ -15,11 +15,10 @@
     <form id="holidayForm">
       <label for="employmentType">Employment Type:</label>
       <select id="employmentType" required>
-        <option value="fullTime">Full-time (5 day work week)</option>
         <option value="partTime">Part-time or 0 hours contract</option>
       </select>
 
-      <div id="hoursInputContainer" style="display: none">
+      <div id="hoursInputContainer">
         <label for="hoursWorked">Hours worked in the month:</label>
         <input type="number" id="hoursWorked" min="0.5" step="0.5" required />
       </div>
