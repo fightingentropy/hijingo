@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Token Drinks Math Calculator</title>
     <link rel="stylesheet" href="styles/math.css" />
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
-  <body>
+  <body class="dark-mode">
     <a href="index.html" class="home-button">Home</a>
     <div class="toggle-container">
-      <span>Dark Mode</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="darkModeToggle" />
-        <span class="slider"></span>
-      </label>
+      <button id="darkModeToggle" class="icon-button">
+        <i class="fas fa-sun"></i>
+      </button>
     </div>
     <div class="header">
       <h1>Token Drinks Math Calculator</h1>
@@ -53,17 +56,17 @@
     </div>
 
     <script type="module">
-      import { tokenDrinksMath } from './scripts/tokenDrinksMath.js';
+      import { tokenDrinksMath } from "./scripts/tokenDrinksMath.js";
 
       function calculateResult() {
         const tokensPerPerson = parseFloat(
-          document.getElementById('tokensPerPerson').value
+          document.getElementById("tokensPerPerson").value
         );
         const totalCovers = parseFloat(
-          document.getElementById('totalCovers').value
+          document.getElementById("totalCovers").value
         );
         const totalTables = parseFloat(
-          document.getElementById('totalTables').value
+          document.getElementById("totalTables").value
         );
 
         if (
@@ -71,7 +74,7 @@
           isNaN(totalCovers) ||
           isNaN(totalTables)
         ) {
-          alert('Please enter valid numbers for all fields.');
+          alert("Please enter valid numbers for all fields.");
           return;
         }
 
@@ -81,13 +84,13 @@
           totalTables
         );
 
-        document.getElementById('totalDrinks').textContent = result.totalDrinks;
-        document.getElementById('totalBeer').textContent = result.totals.beer;
-        document.getElementById('totalWhiteWine').textContent =
+        document.getElementById("totalDrinks").textContent = result.totalDrinks;
+        document.getElementById("totalBeer").textContent = result.totals.beer;
+        document.getElementById("totalWhiteWine").textContent =
           result.totals.whiteWine;
-        document.getElementById('totalRedWine').textContent =
+        document.getElementById("totalRedWine").textContent =
           result.totals.redWine;
-        document.getElementById('totalSoftDrink').textContent =
+        document.getElementById("totalSoftDrink").textContent =
           result.totals.softDrink;
 
         // Function to format numbers without unnecessary decimal points
@@ -95,20 +98,20 @@
           return Number.isInteger(num) ? num.toString() : num.toFixed(2);
         };
 
-        document.getElementById('perTableBeer').textContent = formatNumber(
+        document.getElementById("perTableBeer").textContent = formatNumber(
           result.perTable.beer
         );
-        document.getElementById('perTableWhiteWine').textContent = formatNumber(
+        document.getElementById("perTableWhiteWine").textContent = formatNumber(
           result.perTable.whiteWine
         );
-        document.getElementById('perTableRedWine').textContent = formatNumber(
+        document.getElementById("perTableRedWine").textContent = formatNumber(
           result.perTable.redWine
         );
-        document.getElementById('perTableSoftDrink').textContent = formatNumber(
+        document.getElementById("perTableSoftDrink").textContent = formatNumber(
           result.perTable.softDrink
         );
 
-        document.getElementById('result').style.display = 'block';
+        document.getElementById("result").style.display = "block";
       }
 
       // Make calculateResult available globally
@@ -116,19 +119,40 @@
 
       // Add event listener for the Enter key on the last input field
       document
-        .getElementById('totalTables')
-        .addEventListener('keypress', function (event) {
-          if (event.key === 'Enter') {
+        .getElementById("totalTables")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
             event.preventDefault(); // Prevent form submission if it's in a form
             calculateResult();
           }
         });
 
       // Dark mode toggle functionality
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      darkModeToggle.addEventListener('change', () => {
-        document.body.classList.toggle('dark-mode');
+      const darkModeToggle = document.getElementById("darkModeToggle");
+      const darkModeIcon = darkModeToggle.querySelector("i");
+
+      function updateDarkModeIcon() {
+        if (document.body.classList.contains("dark-mode")) {
+          darkModeIcon.classList.remove("fa-sun");
+          darkModeIcon.classList.add("fa-moon");
+        } else {
+          darkModeIcon.classList.remove("fa-moon");
+          darkModeIcon.classList.add("fa-sun");
+        }
+      }
+
+      darkModeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        updateDarkModeIcon();
       });
+
+      // Set initial icon state
+      updateDarkModeIcon();
+
+      // Check if dark mode is enabled by default
+      if (document.body.classList.contains("dark-mode")) {
+        darkModeToggle.checked = true;
+      }
     </script>
   </body>
 </html>

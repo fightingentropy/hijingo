@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 :root {
   --bg-color: #ffffff;
@@ -19,7 +19,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   line-height: 1.6;
   max-width: 400px;
@@ -28,7 +28,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: all 0.3s ease;
-  position: relative; /* Add this line */
+  position: relative;
 }
 
 .header {
@@ -67,7 +67,7 @@ button {
   background-color: var(--input-bg);
   color: var(--text-color);
   width: 100%;
-  box-sizing: border-box; /* Add this line */
+  box-sizing: border-box;
 }
 
 button {
@@ -82,23 +82,18 @@ button:hover {
   background-color: #45a049;
 }
 
-#result {
-  font-weight: bold;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: var(--input-bg);
-  border-radius: 5px;
-  font-size: 1.2em;
-  width: 100%;
-}
-
-#darkModeToggle {
-  position: fixed; /* Change from absolute to fixed */
-  top: 20px; /* Adjust as needed */
-  right: 20px; /* Adjust as needed */
+.home-button {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 1.5em;
-  z-index: 1000; /* Ensure it's above other elements */
+  border-radius: 5px;
 }
 
 @media (max-width: 600px) {
@@ -109,8 +104,55 @@ button:hover {
   h1 {
     font-size: 1.8em;
   }
+}
 
-  #darkModeToggle {
-    font-size: 1.2em;
-  }
+/* Add these styles at the end of the file */
+
+#result {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--input-bg);
+  border-radius: 5px;
+  font-size: 1.1em;
+}
+
+#result h2 {
+  margin-top: 0;
+  font-size: 1.3em;
+}
+
+#result p {
+  margin-bottom: 5px;
+}
+
+#hoursAccrued {
+  font-weight: bold;
+}
+
+/* Custom arrow styles */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23ffffff' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 24px;
+  padding-right: 30px;
+}
+
+.dark-mode select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23f0f0f0' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

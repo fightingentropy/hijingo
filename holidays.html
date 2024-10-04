@@ -6,11 +6,16 @@
     <title>Holiday Accrual Calculator</title>
     <link rel="stylesheet" href="/styles/holidays.css" />
     <script src="/scripts/holidaysCalculator.js" defer></script>
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
-  <body>
+  <body class="dark-mode">
+    <a href="index.html" class="home-button">Home</a>
     <div class="header">
       <h1>Holiday Accrual Calculator</h1>
-      <div id="darkModeToggle">☀️</div>
     </div>
     <form id="holidayForm">
       <label for="employmentType">Employment Type:</label>
@@ -26,6 +31,9 @@
       <button type="submit">Calculate</button>
     </form>
 
-    <div id="result"></div>
+    <div id="result" style="display: none">
+      <h2>Holiday Accrual Result:</h2>
+      <p>Hours accrued: <span id="hoursAccrued"></span></p>
+    </div>
   </body>
 </html>
