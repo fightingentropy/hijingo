@@ -3,9 +3,439 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Floorplan</title>
+    <title>The Neko Box Floorplan</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .floorplan {
+        width: 95vw;
+        height: 95vh;
+        max-width: 1200px;
+        max-height: 800px;
+        background-color: #ff4d4d;
+        border: 3px solid #000;
+        position: relative;
+      }
+      .table {
+        position: absolute;
+        transform: rotate(-45deg);
+        font-size: 2vh;
+        user-select: none;
+        font-weight: bold;
+        cursor: move; /* Add this line to make the cursor indicate draggability */
+      }
+      .table-vertical {
+        transform: rotate(270deg);
+      }
+      .table-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .table-label {
+        background-color: #000;
+        color: #fff;
+        padding: 2px 5px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1.8vh;
+      }
+      .seats {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      .seat-row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .seat {
+        width: 2.2vh;
+        height: 2.2vh;
+        background-color: #fff;
+        border: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4vh;
+        color: #000;
+        font-weight: bold;
+      }
+      .stage,
+      .bar,
+      .entrance {
+        position: absolute;
+        font-size: 3vh;
+        font-weight: bold;
+      }
+      .stage {
+        right: 1vw;
+        top: 5vh;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+      .bar {
+        left: 1vw;
+        top: 40vh;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+      .entrance {
+        right: 1vw;
+        bottom: 5vh;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+      .neko-box-area {
+        position: absolute;
+        bottom: 2vh;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #000;
+        padding: 1vh;
+        width: 60%;
+      }
+      .neko-box-label {
+        background-color: #fff;
+        color: #000;
+        padding: 0.3vh 0.5vw;
+        font-weight: bold;
+        font-size: 1.5vh;
+        margin-bottom: 0.5vh;
+      }
+      .neko-box-tables {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        background-color: #ff4d4d;
+      }
+      .neko-box-table {
+        display: flex;
+        flex-direction: row;
+        background-color: #ff4d4d;
+        margin: 0 0.5vw;
+      }
+      .neko-box-table .table-label {
+        background-color: #000;
+        color: #fff;
+        padding: 0.3vh 0.5vw;
+        font-weight: bold;
+        font-size: 1vh;
+        width: 2vh;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .neko-box-table .seat {
+        width: 2vh;
+        height: 2vh;
+        margin: 0.1vh 0;
+        font-size: 1vh;
+      }
+      .walk-in-area {
+        position: absolute;
+        bottom: 20vh;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+      }
+      .walk-in {
+        display: flex;
+        align-items: center;
+      }
+      .walk-in-number {
+        background-color: #fff;
+        color: #000;
+        width: 2vh;
+        height: 2vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin: 0 0.5vh;
+        font-size: 1.2vh;
+      }
+      .walk-in-circle {
+        width: 6vh;
+        height: 6vh;
+        border-radius: 50%;
+        background-color: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2vh;
+      }
+      .table-column {
+        display: flex;
+        flex-direction: column;
+      }
+      .save-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .save-button:hover {
+        background-color: #45a049;
+      }
+    </style>
   </head>
   <body>
-    <embed src="files/floorplan.pdf" type="application/pdf" />
+    <div class="floorplan">
+      <div class="stage">STAGE</div>
+      <div class="bar">BAR</div>
+      <div class="entrance">ENTRANCE</div>
+
+      <!-- Main tables will be added here dynamically -->
+
+      <div class="walk-in-area">
+        <div class="walk-in">
+          <div class="walk-in-number">1</div>
+          <div class="walk-in-circle">WALK IN</div>
+          <div class="walk-in-number">2</div>
+        </div>
+        <div class="walk-in">
+          <div class="walk-in-number">1</div>
+          <div class="walk-in-circle">WALK IN</div>
+          <div class="walk-in-number">2</div>
+        </div>
+      </div>
+
+      <div class="neko-box-area">
+        <div class="neko-box-label">THE NEKO BOX</div>
+        <div class="neko-box-tables">
+          <!-- Neko Box tables will be added here -->
+        </div>
+      </div>
+      <button class="save-button" onclick="savePositions()">
+        Save Positions
+      </button>
+    </div>
+
+    <script>
+      const defaultConfiguration = [
+        { id: 11, top: "129.352px", left: "225.907px", seats: 16 },
+        { id: 10, top: "174.724px", left: "357.853px", seats: 14 },
+        { id: 5, top: "30%", left: "30%", seats: 28 },
+        { id: 9, top: "431.956px", left: "359.913px", seats: 18 },
+        { id: 6, top: "40%", left: "45%", seats: 8 },
+        { id: 7, top: "409.236px", left: "522.068px", seats: 22 },
+        { id: 8, top: "55%", left: "55%", seats: 16 },
+        { id: 4, top: "169.841px", left: "666.692px", seats: 8 },
+        { id: 3, top: "242.096px", left: "704.799px", seats: 12 },
+        { id: 2, top: "287.096px", left: "786.799px", seats: 12 },
+        {
+          id: 1,
+          top: "440.871px",
+          left: "934.129px",
+          seats: 14,
+          vertical: true,
+        },
+      ];
+
+      let tables = JSON.parse(JSON.stringify(defaultConfiguration)); // Create a deep copy
+
+      const nekoBoxTables = [
+        { id: 17, seats: 8 },
+        { id: 18, seats: 8 },
+        { id: 19, seats: 8 },
+      ];
+
+      // Load saved positions when the page loads
+      function loadPositions() {
+        const savedPositions = localStorage.getItem("tablePositions");
+        if (savedPositions) {
+          tables = JSON.parse(savedPositions);
+        } else {
+          tables = JSON.parse(JSON.stringify(defaultConfiguration));
+        }
+      }
+
+      // Call loadPositions before creating tables
+      loadPositions();
+
+      function createTable(table) {
+        const tableDiv = document.createElement("div");
+        tableDiv.className = "table";
+        tableDiv.id = `table-${table.id}`;
+        if (table.vertical) {
+          tableDiv.classList.add("table-vertical");
+        }
+        tableDiv.style.top = table.top;
+        tableDiv.style.left = table.left;
+
+        // Add event listeners for drag and drop
+        tableDiv.addEventListener("mousedown", dragStart);
+
+        const tableContent = document.createElement("div");
+        tableContent.className = "table-content";
+
+        const seatsDiv = document.createElement("div");
+        seatsDiv.className = "seats";
+
+        const topRow = document.createElement("div");
+        topRow.className = "seat-row";
+
+        const midpoint = Math.ceil(table.seats / 2);
+
+        // Top row (left to right)
+        for (let i = midpoint + 1; i <= table.seats; i++) {
+          const seatDiv = document.createElement("div");
+          seatDiv.className = "seat";
+          seatDiv.textContent = i;
+          topRow.appendChild(seatDiv);
+        }
+
+        seatsDiv.appendChild(topRow);
+
+        const labelDiv = document.createElement("div");
+        labelDiv.className = "table-label";
+        labelDiv.textContent = `TABLE ${table.id}`;
+
+        const bottomRow = document.createElement("div");
+        bottomRow.className = "seat-row";
+
+        // Bottom row (right to left)
+        for (let i = midpoint; i >= 1; i--) {
+          const seatDiv = document.createElement("div");
+          seatDiv.className = "seat";
+          seatDiv.textContent = i;
+          bottomRow.appendChild(seatDiv);
+        }
+
+        tableContent.appendChild(seatsDiv);
+        tableContent.appendChild(labelDiv);
+        tableContent.appendChild(bottomRow);
+        tableDiv.appendChild(tableContent);
+
+        document.querySelector(".floorplan").appendChild(tableDiv);
+      }
+
+      function createNekoBoxTable(table) {
+        const tableDiv = document.createElement("div");
+        tableDiv.className = "neko-box-table";
+
+        const leftColumn = document.createElement("div");
+        leftColumn.className = "table-column";
+        const rightColumn = document.createElement("div");
+        rightColumn.className = "table-column";
+
+        for (let i = table.seats; i > table.seats / 2; i--) {
+          const seat = document.createElement("div");
+          seat.className = "seat";
+          seat.textContent = i;
+          leftColumn.appendChild(seat);
+        }
+
+        const labelDiv = document.createElement("div");
+        labelDiv.className = "table-label";
+        labelDiv.textContent = `TABLE ${table.id}`;
+
+        for (let i = 1; i <= table.seats / 2; i++) {
+          const seat = document.createElement("div");
+          seat.className = "seat";
+          seat.textContent = i;
+          rightColumn.appendChild(seat);
+        }
+
+        tableDiv.appendChild(leftColumn);
+        tableDiv.appendChild(labelDiv);
+        tableDiv.appendChild(rightColumn);
+
+        document.querySelector(".neko-box-tables").appendChild(tableDiv);
+      }
+
+      let isDragging = false;
+      let currentTable = null;
+      let startX, startY, startLeft, startTop;
+
+      function dragStart(e) {
+        isDragging = true;
+        currentTable = this;
+        startX = e.clientX;
+        startY = e.clientY;
+
+        // Get the current position of the table
+        const rect = currentTable.getBoundingClientRect();
+        startLeft = rect.left;
+        startTop = rect.top;
+
+        // Prevent default drag behavior
+        e.preventDefault();
+      }
+
+      function drag(e) {
+        if (!isDragging) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        // Update the position relative to the floorplan
+        const floorplanRect = floorplan.getBoundingClientRect();
+        currentTable.style.left = `${startLeft - floorplanRect.left + dx}px`;
+        currentTable.style.top = `${startTop - floorplanRect.top + dy}px`;
+      }
+
+      function dragEnd(e) {
+        if (isDragging && currentTable) {
+          const tableId = parseInt(currentTable.id.split("-")[1]);
+          const table = tables.find((t) => t.id === tableId);
+          if (table) {
+            table.top = currentTable.style.top;
+            table.left = currentTable.style.left;
+          }
+        }
+        isDragging = false;
+        currentTable = null;
+      }
+
+      // Add these event listeners to the document
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", dragEnd);
+
+      function savePositions() {
+        tables.forEach((table) => {
+          const tableElement = document.getElementById(`table-${table.id}`);
+          if (tableElement) {
+            table.top = tableElement.style.top;
+            table.left = tableElement.style.left;
+          }
+        });
+
+        localStorage.setItem("tablePositions", JSON.stringify(tables));
+        alert("Table positions saved!");
+      }
+
+      tables.forEach(createTable);
+      nekoBoxTables.forEach(createNekoBoxTable);
+    </script>
   </body>
 </html>
