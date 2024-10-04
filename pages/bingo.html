@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hijingo | State of Play</title>
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/styles/bingo.css" />
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../styles/bingo.css" />
   </head>
   <body>
-    <a href="index.html" class="home-button">⌂</a>
+    <a href="../index.html" class="home-button">⌂</a>
     <button id="mode-toggle">🌓</button>
     <div class="game-container">
       <div class="game-header">
-        <img src="/assets/favicon.ico" alt="Favicon" class="favicon" />
+        <img src="../assets/favicon.ico" alt="Favicon" class="favicon" />
         <h1>HIJINGO</h1>
         <div class="qr-code">
           <img
@@ -29,23 +29,23 @@
     </div>
 
     <script>
-      const bingoCard = document.getElementById('bingo-card');
-      const newGameBtn = document.getElementById('new-game');
-      const gameNumber = document.getElementById('game-number');
+      const bingoCard = document.getElementById("bingo-card");
+      const newGameBtn = document.getElementById("new-game");
+      const gameNumber = document.getElementById("game-number");
       let winLevels = { level1: false, level2: false, level3: false };
 
       function showWinMessage(level) {
-        const message = document.createElement('div');
-        message.className = 'win-message';
+        const message = document.createElement("div");
+        message.className = "win-message";
         message.textContent = `Level ${level} Win!`;
         document.body.appendChild(message);
 
         setTimeout(() => {
-          message.style.opacity = '1';
+          message.style.opacity = "1";
         }, 100);
 
         setTimeout(() => {
-          message.style.opacity = '0';
+          message.style.opacity = "0";
           setTimeout(() => {
             document.body.removeChild(message);
           }, 500);
@@ -72,7 +72,7 @@
             break;
         }
 
-        const colors = ['#ff0000', '#ffffff', '#8b0000', '#ffd700', '#ff69b4'];
+        const colors = ["#ff0000", "#ffffff", "#8b0000", "#ffd700", "#ff69b4"];
 
         const origins = [
           { x: 0, y: 0 }, // top-left
@@ -96,7 +96,7 @@
             gravity: 0.8,
             scalar: 1.2,
             drift: 0,
-            shapes: ['square', 'circle'],
+            shapes: ["square", "circle"],
           });
         });
 
@@ -111,7 +111,7 @@
             gravity: 0.9,
             scalar: 1.5,
             drift: 1,
-            shapes: ['star'],
+            shapes: ["star"],
           });
         }, duration / 2);
 
@@ -120,15 +120,15 @@
       }
 
       function checkWin() {
-        const cells = document.querySelectorAll('.bingo-cell');
-        const markedCells = document.querySelectorAll('.bingo-cell.marked');
+        const cells = document.querySelectorAll(".bingo-cell");
+        const markedCells = document.querySelectorAll(".bingo-cell.marked");
 
         // Check diagonals
         const topLeftToBottomRight = [0, 5, 10, 15].every((i) =>
-          cells[i].classList.contains('marked')
+          cells[i].classList.contains("marked")
         );
         const topRightToBottomLeft = [3, 6, 9, 12].every((i) =>
-          cells[i].classList.contains('marked')
+          cells[i].classList.contains("marked")
         );
 
         if (
@@ -152,18 +152,18 @@
 
       function generateBingoCard() {
         winLevels = { level1: false, level2: false, level3: false }; // Reset win levels for new game
-        bingoCard.innerHTML = '';
+        bingoCard.innerHTML = "";
         const numbers = new Set();
         while (numbers.size < 16) {
           numbers.add(Math.floor(Math.random() * 75) + 1);
         }
         const numbersArray = Array.from(numbers);
         for (let i = 0; i < 16; i++) {
-          const cell = document.createElement('div');
-          cell.className = 'bingo-cell';
+          const cell = document.createElement("div");
+          cell.className = "bingo-cell";
           cell.textContent = numbersArray[i];
-          cell.addEventListener('click', () => {
-            cell.classList.toggle('marked');
+          cell.addEventListener("click", () => {
+            cell.classList.toggle("marked");
             checkWin(); // Check for win after each cell is marked
           });
           bingoCard.appendChild(cell);
@@ -171,25 +171,25 @@
         gameNumber.textContent = `Game #${Math.floor(Math.random() * 2) + 1}`;
       }
 
-      newGameBtn.addEventListener('click', generateBingoCard);
+      newGameBtn.addEventListener("click", generateBingoCard);
 
       // Initialize the game
       generateBingoCard();
 
-      const modeToggle = document.getElementById('mode-toggle');
+      const modeToggle = document.getElementById("mode-toggle");
       const body = document.body;
 
-      modeToggle.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
+      modeToggle.addEventListener("click", () => {
+        body.classList.toggle("light-mode");
         localStorage.setItem(
-          'lightMode',
-          body.classList.contains('light-mode')
+          "lightMode",
+          body.classList.contains("light-mode")
         );
       });
 
       // Check for saved mode preference
-      if (localStorage.getItem('lightMode') === 'true') {
-        body.classList.add('light-mode');
+      if (localStorage.getItem("lightMode") === "true") {
+        body.classList.add("light-mode");
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
