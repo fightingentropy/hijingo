@@ -1,0 +1,188 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.floorplan {
+  width: 95vw;
+  height: 95vh;
+  max-width: 1200px;
+  max-height: 800px;
+  background-color: #ff4d4d;
+  border: 3px solid #000;
+  position: relative;
+}
+.table {
+  position: absolute;
+  transform: rotate(-45deg);
+  font-size: 2vh;
+  user-select: none;
+  font-weight: bold;
+}
+.table-vertical {
+  transform: rotate(270deg);
+}
+.table-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.table-label {
+  background-color: #000;
+  color: #fff;
+  padding: 2px 5px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.8vh;
+}
+.seats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.seat-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.seat {
+  width: 2.2vh;
+  height: 2.2vh;
+  background-color: #fff;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4vh;
+  color: #000;
+  font-weight: bold;
+}
+.stage,
+.bar,
+.entrance {
+  position: absolute;
+  font-size: 3vh;
+  font-weight: bold;
+}
+.stage {
+  right: 1vw;
+  top: 5vh;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.bar {
+  left: 1vw;
+  top: 40vh;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.entrance {
+  right: 1vw;
+  bottom: 5vh;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.neko-box-area {
+  position: absolute;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  padding: 1vh;
+  width: 60%;
+}
+.neko-box-label {
+  background-color: #fff;
+  color: #000;
+  padding: 0.3vh 0.5vw;
+  font-weight: bold;
+  font-size: 1.5vh;
+  margin-bottom: 0.5vh;
+}
+.neko-box-tables {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #ff4d4d;
+}
+.neko-box-table {
+  display: flex;
+  flex-direction: row;
+  background-color: #ff4d4d;
+  margin: 0 0.5vw;
+}
+.neko-box-table .table-label {
+  background-color: #000;
+  color: #fff;
+  padding: 0.3vh 0.5vw;
+  font-weight: bold;
+  font-size: 1vh;
+  width: 2vh;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.neko-box-table .seat {
+  width: 2vh;
+  height: 2vh;
+  margin: 0.1vh 0;
+  font-size: 1vh;
+}
+.walk-in-area {
+  position: absolute;
+  bottom: 20vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+}
+.walk-in {
+  display: flex;
+  align-items: center;
+}
+.walk-in-number {
+  background-color: #fff;
+  color: #000;
+  width: 2vh;
+  height: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin: 0 0.5vh;
+  font-size: 1.2vh;
+}
+.walk-in-circle {
+  width: 6vh;
+  height: 6vh;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2vh;
+}
+.table-column {
+  display: flex;
+  flex-direction: column;
+}
+.save-button {
+  display: none;
+}
