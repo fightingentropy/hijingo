@@ -1,89 +1,23 @@
-const form = document.getElementById("holidayForm");
-const employmentType = document.getElementById("employmentType");
-const hoursInputContainer = document.getElementById("hoursInputContainer");
-const hoursWorked = document.getElementById("hoursWorked");
-const result = document.getElementById("result");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("holidayForm");
+  const employmentType = document.getElementById("employmentType");
+  const hoursWorked = document.getElementById("hoursWorked");
+  const result = document.getElementById("result");
+  const hoursAccrued = document.getElementById("hoursAccrued");
+  const daysAccrued = document.getElementById("daysAccrued");
 
-function resetResult() {
-  result.innerHTML = "";
-  result.style.display = "none";
-}
+  const ACCRUAL_RATE = 0.1207; // 12.07% for part-time workers
+  const HOURS_PER_DAY = 7.5; // Standard working day
 
-employmentType.addEventListener("change", function () {
-  const isPartTime = this.value === "partTime";
-  hoursInputContainer.style.display = isPartTime ? "block" : "none";
-  hoursWorked.required = isPartTime;
-  resetResult(); // Reset the result when employment type changes
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const hours = parseFloat(hoursWorked.value);
+    const accruedHours = (hours * ACCRUAL_RATE).toFixed(2);
+    const accruedDays = (accruedHours / HOURS_PER_DAY).toFixed(2);
+
+    hoursAccrued.textContent = accruedHours;
+    daysAccrued.textContent = accruedDays;
+    result.style.display = "block";
+  });
 });
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  console.log("Form submitted. Employment type:", employmentType.value);
-  let holidayHours;
-  let holidayDays;
-
-  if (employmentType.value === "fullTime") {
-    console.log("Calculating for full-time");
-    holidayHours = (28 / 12) * 7.5;
-    holidayDays = 28 / 12;
-  } else {
-    console.log("Calculating for part-time");
-    const monthlyHours = parseFloat(hoursWorked.value);
-    if (isNaN(monthlyHours) || monthlyHours <= 0) {
-      alert("Please enter a valid number of hours worked (greater than 0).");
-      return;
-    }
-    holidayHours = (28 / 52) * (monthlyHours / 4.33);
-    holidayDays = holidayHours / 7.5;
-  }
-
-  console.log(
-    "Calculation complete. Hours:",
-    holidayHours,
-    "Days:",
-    holidayDays
-  );
-
-  result.innerHTML = `
-    <p>Holiday accrued this month:</p>
-    <p>Hours: ${holidayHours.toFixed(2)}</p>
-    <p>Days: ${holidayDays.toFixed(2)}</p>
-  `;
-  result.style.display = "block";
-  console.log("Result displayed");
-});
-
-// Update dark mode toggle functionality
-const darkModeToggle = document.getElementById("darkModeToggle");
-darkModeToggle.addEventListener("click", function () {
-  document.documentElement.classList.toggle("dark-mode");
-  this.textContent = document.documentElement.classList.contains("dark-mode")
-    ? "☀️"
-    : "🌓";
-});
-
-// Set initial dark mode state
-document.addEventListener("DOMContentLoaded", function () {
-  resetResult();
-  darkModeToggle.textContent = "☀️";
-  hoursWorked.required = false; // Initially set to false for full-time
-});
-
-document.getElementById("holidayForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const hoursWorked = parseFloat(document.getElementById("hoursWorked").value);
-
-  // Perform your calculation here
-  const hoursAccrued = calculateHolidayAccrual(hoursWorked);
-
-  // Update the result display
-  document.getElementById("hoursAccrued").textContent = hoursAccrued.toFixed(2);
-  document.getElementById("result").style.display = "block";
-});
-
-function calculateHolidayAccrual(hoursWorked) {
-  // Your calculation logic here
-  // This is just a placeholder calculation
-  return hoursWorked * 0.1207;
-}
