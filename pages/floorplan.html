@@ -6,96 +6,105 @@
     <title>The Neko Box Floorplan</title>
     <link rel="stylesheet" href="../styles/floorplan.css" />
     <style>
-      @media (max-width: 768px) {
-        body {
-          padding: 10px;
-        }
-
-        .floorplan {
-          width: 1200px;
-          height: 800px;
-          overflow: auto;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .total-capacity,
-        .current-occupancy {
-          position: fixed;
-          top: 10px;
-          left: 10px;
-          background: rgba(255, 255, 255, 0.8);
-          padding: 5px;
-          z-index: 1000;
-        }
-
-        .current-occupancy {
-          top: 40px;
-        }
+      body {
+        margin: 0;
+        padding: 0;
       }
 
-      @media (min-width: 769px) {
+      .floorplan-container {
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .floorplan {
+        width: 1400px; /* Increased width to ensure all elements are visible */
+        height: 800px;
+        position: relative;
+        padding: 80px 20px 20px 100px; /* Increased left padding to 100px */
+        box-sizing: border-box;
+      }
+
+      .total-capacity,
+      .current-occupancy {
+        position: fixed;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 5px;
+        z-index: 1000;
+      }
+
+      .total-capacity {
+        top: 10px;
+      }
+
+      .current-occupancy {
+        top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .floorplan-container {
+          padding-top: 70px;
+        }
+
+        /* Ensure the container allows horizontal scrolling */
         .floorplan {
-          width: 1200px;
-          height: 800px;
-          margin: 0 auto;
+          min-width: 1400px; /* Match the increased width */
         }
       }
     </style>
   </head>
   <body>
-    <div class="floorplan">
-      <div class="total-capacity">
-        Total Capacity: <span id="capacity-number"></span>
-      </div>
-      <div class="current-occupancy">
-        Current Occupancy: <span id="occupancy-number">0</span>
-      </div>
-      <div class="stage">STAGE</div>
-      <div class="bar">BAR</div>
-      <div class="entrance">ENTRANCE</div>
-
-      <!-- Main tables will be added here dynamically -->
-
-      <div class="walk-in-area">
-        <div class="walk-in">
-          <div class="walk-in-number">1</div>
-          <div class="walk-in-circle">WALK IN</div>
-          <div class="walk-in-number">2</div>
+    <div class="floorplan-container">
+      <div class="floorplan">
+        <div class="total-capacity">
+          Total Capacity: <span id="capacity-number"></span>
         </div>
-        <div class="walk-in">
-          <div class="walk-in-number">1</div>
-          <div class="walk-in-circle">WALK IN</div>
-          <div class="walk-in-number">2</div>
+        <div class="current-occupancy">
+          Current Occupancy: <span id="occupancy-number">0</span>
         </div>
-      </div>
+        <div class="stage">STAGE</div>
+        <div class="bar">BAR</div>
+        <div class="entrance">ENTRANCE</div>
 
-      <div class="neko-box-area">
-        <div class="neko-box-label">THE NEKO BOX</div>
-        <div class="neko-box-tables">
-          <!-- Neko Box tables will be added here -->
+        <!-- Main tables will be added here dynamically -->
+
+        <div class="walk-in-area">
+          <div class="walk-in">
+            <div class="walk-in-number">1</div>
+            <div class="walk-in-circle">WALK IN</div>
+            <div class="walk-in-number">2</div>
+          </div>
+          <div class="walk-in">
+            <div class="walk-in-number">1</div>
+            <div class="walk-in-circle">WALK IN</div>
+            <div class="walk-in-number">2</div>
+          </div>
+        </div>
+
+        <div class="neko-box-area">
+          <div class="neko-box-label">THE NEKO BOX</div>
+          <div class="neko-box-tables">
+            <!-- Neko Box tables will be added here -->
+          </div>
         </div>
       </div>
     </div>
 
     <script>
       const defaultConfiguration = [
-        { id: 11, top: "129.352px", left: "225.907px", seats: 16 },
-        { id: 10, top: "174.724px", left: "357.853px", seats: 14 },
-        { id: 5, top: "30%", left: "30%", seats: 28 },
-        { id: 9, top: "431.956px", left: "359.913px", seats: 18 },
-        { id: 6, top: "40%", left: "45%", seats: 8 },
-        { id: 7, top: "409.236px", left: "522.068px", seats: 22 },
-        { id: 8, top: "55%", left: "55%", seats: 16 },
-        { id: 4, top: "169.841px", left: "666.692px", seats: 8 },
-        { id: 3, top: "242.096px", left: "704.799px", seats: 12 },
-        { id: 2, top: "287.096px", left: "786.799px", seats: 12 },
-        {
-          id: 1,
-          top: "440.871px",
-          left: "934.129px",
-          seats: 14,
-          vertical: true,
-        },
+        { id: 11, top: "129px", left: "225px", seats: 16 },
+        { id: 10, top: "174px", left: "357px", seats: 14 },
+        { id: 5, top: "240px", left: "360px", seats: 28 },
+        { id: 9, top: "431px", left: "359px", seats: 18 },
+        { id: 6, top: "320px", left: "540px", seats: 8 },
+        { id: 7, top: "409px", left: "522px", seats: 22 },
+        { id: 8, top: "440px", left: "660px", seats: 16 },
+        { id: 4, top: "169px", left: "666px", seats: 8 },
+        { id: 3, top: "242px", left: "704px", seats: 12 },
+        { id: 2, top: "287px", left: "786px", seats: 12 },
+        { id: 1, top: "440px", left: "934px", seats: 14, vertical: true },
       ];
 
       let tables = JSON.parse(JSON.stringify(defaultConfiguration)); // Create a deep copy
