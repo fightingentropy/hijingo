@@ -5,6 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Neko Box Floorplan</title>
     <link rel="stylesheet" href="../styles/floorplan.css" />
+    <style>
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .floorplan {
+          width: 1200px;
+          height: 800px;
+          overflow: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .total-capacity,
+        .current-occupancy {
+          position: fixed;
+          top: 10px;
+          left: 10px;
+          background: rgba(255, 255, 255, 0.8);
+          padding: 5px;
+          z-index: 1000;
+        }
+
+        .current-occupancy {
+          top: 40px;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .floorplan {
+          width: 1200px;
+          height: 800px;
+          margin: 0 auto;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="floorplan">
