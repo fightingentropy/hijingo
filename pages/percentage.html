@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            background: #000;
+            color: white;
+            padding: 10px;
+            font-size: 24px;
+        }
+
+        .calc-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80px;
+            margin: 0 8px;
+        }
+
+        .calculate-btn {
+            background-color: #3b5998;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 8px;
+        }
+
+        .result {
+            padding: 8px;
+            width: 80px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .calc-section .input-line {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .action-group {
+            float: right;
+        }
+
+        .calc-section::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .invisible-percent {
+            visibility: hidden;
+        }
+
+        .home-btn {
+            background-color: #3b5998;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+
+        .home-btn:hover {
+            background-color: #2d4373;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">%</div>
+        <h1>Percentage Calculator</h1>
+        <a href="/index.html" class="home-btn">Home</a>
+    </div>
+
+    <p>Percentage Calculator is a free online tool to calculate percentages.</p>
+
+    <div class="calc-section">
+        What is <input type="number" id="percent1" step="any"> % of
+        <input type="number" id="number1" step="any"> ?
+        <div class="action-group">
+            <button class="calculate-btn" onclick="calculateFirst()">CALCULATE</button>
+            <span class="result" id="result1">&nbsp;</span><span class="invisible-percent"> %</span>
+        </div>
+    </div>
+
+    <div class="calc-section">
+        <input type="number" id="number2" step="any"> is what percent of
+        <input type="number" id="total2" step="any"> ?
+        <div class="action-group">
+            <button class="calculate-btn" onclick="calculateSecond()">CALCULATE</button>
+            <span class="result" id="result2">&nbsp;</span> %
+        </div>
+    </div>
+
+    <div class="calc-section">
+        What is the percentage increase/decrease:
+        <div class="input-line">
+            from <input type="number" id="from" step="any"> to
+            <input type="number" id="to" step="any"> ?
+            <div class="action-group">
+                <button class="calculate-btn" onclick="calculateThird()">CALCULATE</button>
+                <span class="result" id="result3">&nbsp;</span> %
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateFirst() {
+            const percent = parseFloat(document.getElementById('percent1').value);
+            const number = parseFloat(document.getElementById('number1').value);
+            const result = (percent / 100) * number;
+            document.getElementById('result1').textContent = result.toFixed(2);
+        }
+
+        function calculateSecond() {
+            const number = parseFloat(document.getElementById('number2').value);
+            const total = parseFloat(document.getElementById('total2').value);
+            const result = (number / total) * 100;
+            document.getElementById('result2').textContent = result.toFixed(2);
+        }
+
+        function calculateThird() {
+            const from = parseFloat(document.getElementById('from').value);
+            const to = parseFloat(document.getElementById('to').value);
+            const result = ((to - from) / from) * 100;
+            document.getElementById('result3').textContent = result.toFixed(2);
+        }
+
+        // Add event listeners only for second inputs
+        document.getElementById('number1').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') calculateFirst();
+        });
+
+        document.getElementById('total2').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') calculateSecond();
+        });
+
+        document.getElementById('to').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') calculateThird();
+        });
+    </script>
+</body>
+
+</html>
