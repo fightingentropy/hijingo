@@ -36,6 +36,21 @@
             background-color: #0056b3;
         }
 
+        .collins-link {
+            float: right;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .collins-link:hover {
+            background-color: #218838;
+        }
+
         h1 {
             color: #333;
             margin-bottom: 20px;
@@ -138,7 +153,8 @@
 
 <body>
     <div class="container">
-        <a href="/" class="home-button">← Back to Home</a>
+        <a href="/" class="home-button">Home</a>
+        <a id="collins-diary-link" href="#" class="collins-link" target="_blank">Collins Diary</a>
         <h1>Hijingo Run Sheet</h1>
         <div class="drop-zone" id="dropZone">
             <p>Drag and drop your CSV file here<br>or click to select a file</p>
@@ -301,7 +317,15 @@
         }
 
         // Initialize event listeners
-        window.onload = () => {
+        window.onload = function () {
+            // Set up Collins diary link with current date
+            const collinsLink = document.getElementById('collins-diary-link');
+            const today = new Date();
+            const dateString = today.getFullYear() + '-' +
+                String(today.getMonth() + 1).padStart(2, '0') + '-' +
+                String(today.getDate()).padStart(2, '0');
+            collinsLink.href = `https://admin.designmynight.com/collins/sites/5df22f13a70f973b1c7abee0/diary?date=${dateString}`;
+
             const dropZone = document.getElementById('dropZone');
             const fileInput = document.getElementById('fileInput');
 
