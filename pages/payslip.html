@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payslip Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .payment-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .payment-row label {
+            min-width: 120px;
+            margin-bottom: 0;
+        }
+
+        .payment-row input {
+            width: 120px;
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .base-rate {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Payslip Calculator</h1>
+
+        <div class="base-rate">
+            <strong>Base Rate: £11.44 per hour</strong>
+        </div>
+
+        <div class="input-group">
+            <h3>Week 1</h3>
+            <div class="payment-row">
+                <label for="week1Tronc">Tronc:</label>
+                <input type="number" id="week1Tronc" step="0.01" placeholder="£0.00">
+            </div>
+            <div class="payment-row">
+                <label for="week1Holiday">Holiday:</label>
+                <input type="number" id="week1Holiday" step="0.01" placeholder="£0.00">
+                <span id="week1HolidayHours">0</span> hours
+            </div>
+            <div class="payment-row">
+                <label for="week1Hours">Hours:</label>
+                <input type="number" id="week1Hours" step="0.01" placeholder="0.00">
+                <span>@ £11.44</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <h3>Week 2</h3>
+            <div class="payment-row">
+                <label for="week2Tronc">Tronc:</label>
+                <input type="number" id="week2Tronc" step="0.01" placeholder="£0.00">
+            </div>
+            <div class="payment-row">
+                <label for="week2Holiday">Holiday:</label>
+                <input type="number" id="week2Holiday" step="0.01" placeholder="£0.00">
+                <span id="week2HolidayHours">0</span> hours
+            </div>
+            <div class="payment-row">
+                <label for="week2Hours">Hours:</label>
+                <input type="number" id="week2Hours" step="0.01" placeholder="0.00">
+                <span>@ £11.44</span>
+            </div>
+        </div>
+
+        <button onclick="calculateRates()">Calculate</button>
+
+        <div class="results" id="results">
+            <h3>Results</h3>
+            <p>Week 1:</p>
+            <ul>
+                <li>Regular Hours: <span id="week1RegularHours">0.00</span> @ £11.44 = £<span
+                        id="week1RegularPay">0.00</span></li>
+                <li>Holiday Hours: <span id="week1HolidayHoursResult">0.00</span> @ £11.44 = £<span
+                        id="week1HolidayPay">0.00</span></li>
+                <li>Tronc: £<span id="week1TroncDisplay">0.00</span></li>
+                <li>Total Payment: £<span id="week1TotalPay">0.00</span></li>
+                <li>Effective Hourly Rate: £<span id="week1Rate">0.00</span></li>
+            </ul>
+            <p>Week 2:</p>
+            <ul>
+                <li>Regular Hours: <span id="week2RegularHours">0.00</span> @ £11.44 = £<span
+                        id="week2RegularPay">0.00</span></li>
+                <li>Holiday Hours: <span id="week2HolidayHoursResult">0.00</span> @ £11.44 = £<span
+                        id="week2HolidayPay">0.00</span></li>
+                <li>Tronc: £<span id="week2TroncDisplay">0.00</span></li>
+                <li>Total Payment: £<span id="week2TotalPay">0.00</span></li>
+                <li>Effective Hourly Rate: £<span id="week2Rate">0.00</span></li>
+            </ul>
+            <p class="results-summary">
+                <strong>Total Hours: <span id="totalHours">0.00</span></strong><br>
+                <strong>Total Payment: £<span id="totalPayment">0.00</span></strong><br>
+                <strong>Average Hourly Rate: £<span id="avgRate">0.00</span></strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const BASE_RATE = 11.44;
+
+        function updateHolidayHours(week) {
+            const holidayPay = parseFloat(document.getElementById(week + 'Holiday').value) || 0;
+            const holidayHours = (holidayPay / BASE_RATE).toFixed(2);
+            document.getElementById(week + 'HolidayHours').textContent = holidayHours;
+        }
+
+        // Add event listeners for holiday pay inputs
+        document.getElementById('week1Holiday').addEventListener('input', () => updateHolidayHours('week1'));
+        document.getElementById('week2Holiday').addEventListener('input', () => updateHolidayHours('week2'));
+
+        function calculateRates() {
+            // Week 1 calculations
+            const week1Hours = parseFloat(document.getElementById('week1Hours').value) || 0;
+            const week1Holiday = parseFloat(document.getElementById('week1Holiday').value) || 0;
+            const week1Tronc = parseFloat(document.getElementById('week1Tronc').value) || 0;
+
+            // Week 2 calculations
+            const week2Hours = parseFloat(document.getElementById('week2Hours').value) || 0;
+            const week2Holiday = parseFloat(document.getElementById('week2Holiday').value) || 0;
+            const week2Tronc = parseFloat(document.getElementById('week2Tronc').value) || 0;
+
+            // Calculate holiday hours
+            const week1HolidayHours = week1Holiday / BASE_RATE;
+            const week2HolidayHours = week2Holiday / BASE_RATE;
+
+            // Calculate regular pay
+            const week1RegularPay = week1Hours * BASE_RATE;
+            const week2RegularPay = week2Hours * BASE_RATE;
+
+            // Calculate total hours and payments
+            const week1TotalHours = week1Hours + week1HolidayHours;
+            const week2TotalHours = week2Hours + week2HolidayHours;
+
+            const week1TotalPay = week1RegularPay + week1Holiday + week1Tronc;
+            const week2TotalPay = week2RegularPay + week2Holiday + week2Tronc;
+
+            // Calculate rates
+            const week1Rate = week1TotalHours > 0 ? week1TotalPay / week1TotalHours : 0;
+            const week2Rate = week2TotalHours > 0 ? week2TotalPay / week2TotalHours : 0;
+
+            // Calculate totals
+            const totalHours = week1TotalHours + week2TotalHours;
+            const totalPayment = week1TotalPay + week2TotalPay;
+            const avgRate = totalHours > 0 ? totalPayment / totalHours : 0;
+
+            // Display results
+            document.getElementById('week1RegularHours').textContent = week1Hours.toFixed(2);
+            document.getElementById('week1RegularPay').textContent = week1RegularPay.toFixed(2);
+            document.getElementById('week1HolidayHoursResult').textContent = week1HolidayHours.toFixed(2);
+            document.getElementById('week1HolidayPay').textContent = week1Holiday.toFixed(2);
+            document.getElementById('week1TroncDisplay').textContent = week1Tronc.toFixed(2);
+            document.getElementById('week1TotalPay').textContent = week1TotalPay.toFixed(2);
+            document.getElementById('week1Rate').textContent = week1Rate.toFixed(2);
+
+            document.getElementById('week2RegularHours').textContent = week2Hours.toFixed(2);
+            document.getElementById('week2RegularPay').textContent = week2RegularPay.toFixed(2);
+            document.getElementById('week2HolidayHoursResult').textContent = week2HolidayHours.toFixed(2);
+            document.getElementById('week2HolidayPay').textContent = week2Holiday.toFixed(2);
+            document.getElementById('week2TroncDisplay').textContent = week2Tronc.toFixed(2);
+            document.getElementById('week2TotalPay').textContent = week2TotalPay.toFixed(2);
+            document.getElementById('week2Rate').textContent = week2Rate.toFixed(2);
+
+            document.getElementById('totalHours').textContent = totalHours.toFixed(2);
+            document.getElementById('totalPayment').textContent = totalPayment.toFixed(2);
+            document.getElementById('avgRate').textContent = avgRate.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>
