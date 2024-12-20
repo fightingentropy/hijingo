@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hijingo Run Sheet</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .summary {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        /* Right align the guests column */
+        th:nth-child(2),
+        td:nth-child(2) {
+            text-align: right;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            font-weight: normal;
+        }
+
+        th:hover {
+            background-color: #e9ecef;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .ref-column {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .drop-zone {
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #fafafa;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.dragover {
+            background-color: #e9ecef;
+            border-color: #666;
+        }
+
+        .drop-zone p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/" class="home-button">← Back to Home</a>
+        <h1>Hijingo Run Sheet</h1>
+        <div class="drop-zone" id="dropZone">
+            <p>Drag and drop your CSV file here<br>or click to select a file</p>
+            <input type="file" id="fileInput" accept=".csv" style="display: none">
+        </div>
+        <div class="summary" id="summary">
+            Drop a CSV file to load booking data
+        </div>
+        <div class="filter-section">
+            <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTable()">
+        </div>
+        <table id="bookingsTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Name</th>
+                    <th onclick="sortTable(1)" style="text-align: right;">Guests</th>
+                    <th onclick="sortTable(2)">Time</th>
+                    <th onclick="sortTable(3)">Table</th>
+                    <th onclick="sortTable(4)">Package</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="5">No data loaded. Drop a CSV file to begin.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function loadCSV() {
+            try {
+                const response = await fetch('run-sheet.csv');
+                const text = await response.text();
+                const rows = text.split('\n').map(row => {
+                    return row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                });
+
+                // Extract header information
+                const dateInfo = rows[0][4]?.replace(/"/g, '') || '';
+                const totalGuests = rows[2]?.toString().match(/\d+/)?.[0] || '0';
+
+                // Update summary section
+                document.getElementById('summary').innerHTML = `
+                    <strong>${dateInfo}</strong><br>
+                    Total Guests: ${totalGuests}
+                `;
+
+                // Start from row 5 to skip header information
+                const bookings = rows.slice(5)
+                    .filter(row => row.length > 1 && row[0]?.trim() !== 'Name' && row[0]?.trim())
+                    .map(row => {
+                        const cleanValue = (val) => (val?.replace(/"/g, '').trim() || '');
+                        return {
+                            name: cleanValue(row[0]),
+                            guests: cleanValue(row[2]),
+                            time: cleanValue(row[3]),
+                            table: cleanValue(row[5]),
+                            package: cleanValue(row[7])
+                        };
+                    });
+
+                displayBookings(bookings);
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                document.getElementById('tableBody').innerHTML = `
+                    <tr><td colspan="5">Error loading data. Please check if the CSV file is present.</td></tr>
+                `;
+            }
+        }
+
+        function displayBookings(bookings) {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>${booking.name}</td>
+                    <td style="text-align: right;">${booking.guests}</td>
+                    <td>${booking.time}</td>
+                    <td>${booking.table}</td>
+                    <td>${booking.package}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filterTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const tbody = document.getElementById('tableBody');
+            const rows = tbody.getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const cells = row.getElementsByTagName('td');
+                let shouldShow = false;
+
+                for (let cell of cells) {
+                    if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                        shouldShow = true;
+                        break;
+                    }
+                }
+
+                row.style.display = shouldShow ? '' : 'none';
+            }
+        }
+
+        function sortTable(n) {
+            const table = document.getElementById('bookingsTable');
+            const tbody = table.getElementsByTagName('tbody')[0];
+            const rows = Array.from(tbody.getElementsByTagName('tr'));
+            const direction = table.getAttribute('data-sort-dir') === 'asc' ? -1 : 1;
+
+            rows.sort((a, b) => {
+                const x = a.getElementsByTagName('td')[n]?.textContent.toLowerCase() || '';
+                const y = b.getElementsByTagName('td')[n]?.textContent.toLowerCase() || '';
+                return direction * (x < y ? -1 : x > y ? 1 : 0);
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+            table.setAttribute('data-sort-dir', direction === 1 ? 'asc' : 'desc');
+        }
+
+        async function processCSVFile(file) {
+            try {
+                const text = await file.text();
+                const rows = text.split('\n').map(row => {
+                    return row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                });
+
+                // Extract header information
+                const dateInfo = rows[0][4]?.replace(/"/g, '') || '';
+                const totalGuests = rows[2]?.toString().match(/\d+/)?.[0] || '0';
+
+                // Update summary section
+                document.getElementById('summary').innerHTML = `
+                    <strong>${dateInfo}</strong><br>
+                    Total Guests: ${totalGuests}
+                `;
+
+                // Start from row 5 to skip header information
+                const bookings = rows.slice(5)
+                    .filter(row => row.length > 1 && row[0]?.trim() !== 'Name' && row[0]?.trim())
+                    .map(row => {
+                        const cleanValue = (val) => (val?.replace(/"/g, '').trim() || '');
+                        return {
+                            name: cleanValue(row[0]),
+                            guests: cleanValue(row[2]),
+                            time: cleanValue(row[3]),
+                            table: cleanValue(row[5]),
+                            package: cleanValue(row[7])
+                        };
+                    });
+
+                displayBookings(bookings);
+            } catch (error) {
+                console.error('Error processing CSV:', error);
+                document.getElementById('tableBody').innerHTML = `
+                    <tr><td colspan="5">Error processing the CSV file. Please check the file format.</td></tr>
+                `;
+            }
+        }
+
+        // Initialize event listeners
+        window.onload = () => {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    processCSVFile(file);
+                }
+            });
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.classList.add('dragover');
+                });
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    dropZone.classList.remove('dragover');
+                });
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                const file = e.dataTransfer.files[0];
+                if (file && file.name.toLowerCase().endsWith('.csv')) {
+                    processCSVFile(file);
+                } else {
+                    alert('Please drop a CSV file');
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
