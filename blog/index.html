@@ -1,137 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hijingo | Blog</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
-            line-height: 1.7;
-            font-size: 1.125rem;
-            background: url('../assets/hijingo.webp') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #fff;
-        }
-
-        .blog-post {
-            margin-bottom: 3rem;
-            padding: 2rem;
-            border-radius: 24px;
-            backdrop-filter: blur(10px);
-            background-color: rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s ease;
-        }
-
-        .blog-post:hover {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .blog-post h2 {
-            font-size: 2rem;
-            margin-bottom: 1.2rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            color: #fff;
-        }
-
-        .post-meta {
-            font-size: 0.875rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-            letter-spacing: 0.05em;
-        }
-
-        .post-content {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .read-more {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .read-more:hover {
-            text-decoration: underline;
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <title>Hijingo Blog</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-
 <body>
     <div class="container">
         <header>
             <h1>Hijingo Blog</h1>
-            <p>Thoughts, stories and ideas.</p>
         </header>
 
         <main>
-            <article class="blog-post">
-                <h2>First Blog Post</h2>
-                <div class="post-meta">March 15th, 2024</div>
-                <div class="post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris.</p>
-                </div>
-                <a href="#" class="read-more">Read more →</a>
-            </article>
+            <div class="blog-list active">
+                <!-- Blog posts will be rendered here -->
+            </div>
+            <button id="new-post-btn" class="fab" aria-label="New Post">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
 
-            <article class="blog-post">
-                <h2>Second Blog Post</h2>
-                <div class="post-meta">March 10th, 2024</div>
-                <div class="post-content">
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-                </div>
-                <a href="#" class="read-more">Read more →</a>
-            </article>
+            <div class="post-editor">
+                <button class="back-btn" aria-label="Back to posts">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 12C6 12 14 12 16 12C18 12 18 20 18 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 12L11 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 12L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <h2>Create New Post</h2>
+                <form id="post-form">
+                    <input type="text" id="post-title" placeholder="Post Title" required>
+                    <textarea id="post-content" placeholder="Write your post here (in Markdown)..." required></textarea>
+                    <button type="submit">Publish</button>
+                </form>
+            </div>
 
-            <article class="blog-post">
-                <h2>Third Blog Post</h2>
-                <div class="post-meta">March 5th, 2024</div>
-                <div class="post-content">
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
-                </div>
-                <a href="#" class="read-more">Read more →</a>
-            </article>
+            <div class="post-view">
+                <button class="back-btn" aria-label="Back to posts">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 12C6 12 14 12 16 12C18 12 18 20 18 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 12L11 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 12L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <h2></h2>
+                <p class="date"></p>
+                <div class="content"></div>
+            </div>
         </main>
     </div>
+    
+    <script src="script.js"></script>
 </body>
-
 </html>
