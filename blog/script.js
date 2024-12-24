@@ -33,15 +33,23 @@ class Blog {
             ];
 
             const postPromises = posts.map(async filename => {
-                const response = await fetch(`posts/${filename}`);
-                if (!response.ok) throw new Error(`Failed to load ${filename}`);
-                const content = await response.text();
-                const { data, content: markdown } = this.parseFrontMatter(content);
-                return {
-                    id: filename,
-                    content: markdown,
-                    ...data
-                };
+                try {
+                    const response = await fetch(`/hijingo/blog/posts/${filename}`);
+                    if (!response.ok) {
+                        console.error(`Failed to load ${filename}:`, response.status, response.statusText);
+                        throw new Error(`Failed to load ${filename}: ${response.status} ${response.statusText}`);
+                    }
+                    const content = await response.text();
+                    const { data, content: markdown } = this.parseFrontMatter(content);
+                    return {
+                        id: filename,
+                        content: markdown,
+                        ...data
+                    };
+                } catch (error) {
+                    console.error(`Error loading ${filename}:`, error);
+                    throw error;
+                }
             });
 
             this.posts = await Promise.all(postPromises);
