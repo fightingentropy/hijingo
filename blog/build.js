@@ -14,8 +14,8 @@ async function buildBlog() {
         const posts = await Promise.all(mdFiles.map(async filename => {
             const content = await fs.readFile(path.join(markdownDir, filename), 'utf-8');
             
-            // Parse front matter
-            const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+            // Parse front matter with more lenient line ending handling
+            const frontMatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)$/;
             const match = content.match(frontMatterRegex);
             
             if (!match) {
