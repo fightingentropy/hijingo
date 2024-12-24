@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "id": "digital-minimalism",
+      "title": "Digital Minimalism",
+      "date": "2023-12-23",
+      "content": "---\ntitle: Digital Minimalism\ndate: 2023-12-23\n---\n\n# Digital Minimalism\n\nIn an age of constant digital noise, the concept of digital minimalism has never been more relevant. This philosophy helps us focus on what truly matters in our digital lives.\n\n## Key Principles\n\n1. Intentional Technology Use\n2. Digital Decluttering\n3. Focus on High-Value Activities\n\nBy adopting these principles, we can create a more meaningful relationship with technology."
+    },
+    {
+      "id": "web-development-trends",
+      "title": "Web Development Trends",
+      "date": "2023-12-23",
+      "content": "---\ntitle: Web Development Trends\ndate: 2023-12-23\n---\n\n# Web Development Trends\n\nThe web development landscape is constantly evolving. Here are some key trends to watch:\n\n## Current Trends\n\n1. AI-Powered Development\n2. WebAssembly\n3. Edge Computing\n4. Progressive Web Apps\n\nStaying updated with these trends helps us build better web applications."
+    },
+    {
+      "id": "side-projects",
+      "title": "Side Projects",
+      "date": "2023-12-23",
+      "content": "---\ntitle: Side Projects\ndate: 2023-12-23\n---\n\n# The Value of Side Projects\n\nSide projects are invaluable for personal and professional growth in software development.\n\n## Benefits\n\n1. Learning New Technologies\n2. Building a Portfolio\n3. Exploring Creative Ideas\n4. Potential Career Opportunities\n\nStart small, but start today. Every great project begins with a single line of code."
+    }
+  ]
+}

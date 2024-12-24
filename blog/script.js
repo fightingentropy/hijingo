@@ -29,33 +29,21 @@ class Blog {
 
     async loadPosts() {
         try {
-            const posts = [
-                'digital-minimalism.md',
-                'web-development-trends.md',
-                'side-projects.md'
-            ];
-
-            const postPromises = posts.map(async filename => {
-                try {
-                    const response = await fetch(`${this.baseUrl}${filename}`);
-                    if (!response.ok) {
-                        console.error(`Failed to load ${filename}:`, response.status, response.statusText);
-                        throw new Error(`Failed to load ${filename}: ${response.status} ${response.statusText}`);
-                    }
-                    const content = await response.text();
-                    const { data, content: markdown } = this.parseFrontMatter(content);
-                    return {
-                        id: filename,
-                        content: markdown,
-                        ...data
-                    };
-                } catch (error) {
-                    console.error(`Error loading ${filename}:`, error);
-                    throw error;
-                }
-            });
-
-            this.posts = await Promise.all(postPromises);
+            const response = await fetch(window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+                ? 'posts/posts.json'
+                : '/blog/posts/posts.json');
+                
+            if (!response.ok) {
+                console.error(`Failed to load posts: ${response.status} ${response.statusText}`);
+                throw new Error(`Failed to load posts: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            this.posts = data.posts.map(post => ({
+                ...post,
+                content: this.parseFrontMatter(post.content).content
+            }));
+            
             this.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
             this.renderPosts();
         } catch (error) {
