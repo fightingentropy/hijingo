@@ -1,22 +1,28 @@
 {
   "posts": [
     {
+      "id": "getting-started-with-markdown",
+      "title": "Getting Started with Markdown Blogging",
+      "date": "2023-12-24",
+      "content": "---\ntitle: Getting Started with Markdown Blogging\ndate: 2023-12-24\n---\n\n# Writing Blog Posts in Markdown\n\nWelcome to our blog system! This post will show you how to write beautiful blog posts using Markdown.\n\n## Why Markdown?\n\nMarkdown makes it easy to write formatted content without dealing with HTML. Here are some examples:\n\n### Text Formatting\n\nYou can make text **bold**, *italic*, or ***both***. You can also add `inline code` like this.\n\n### Lists\n\nHere's how to create lists:\n\n1. First item\n2. Second item\n   - Sub-item 1\n   - Sub-item 2\n3. Third item\n\n### Code Blocks\n\n```javascript\n// You can add syntax-highlighted code\nfunction greet(name) {\n    console.log(`Hello, ${name}!`);\n}\n```\n\n### Links and Images\n\nYou can add [links](https://hijingo.uk) and images:\n\n![Alt text](image-url.jpg)\n\n## Publishing Your Post\n\nAfter writing your post:\n\n1. Save it as a .md file in the `posts` directory\n2. Run `npm run build` to update posts.json\n3. Commit your .md file\n4. Deploy your site\n\nThat's it! Your post will appear on the blog, sorted by date.\n"
+    },
+    {
       "id": "digital-minimalism",
-      "title": "Digital Minimalism",
-      "date": "2023-12-23",
-      "content": "---\ntitle: Digital Minimalism\ndate: 2023-12-23\n---\n\n# Digital Minimalism\n\nIn an age of constant digital noise, the concept of digital minimalism has never been more relevant. This philosophy helps us focus on what truly matters in our digital lives.\n\n## Key Principles\n\n1. Intentional Technology Use\n2. Digital Decluttering\n3. Focus on High-Value Activities\n\nBy adopting these principles, we can create a more meaningful relationship with technology."
+      "title": "The Art of Digital Minimalism",
+      "date": "2023-12-22",
+      "content": "---\ntitle: The Art of Digital Minimalism\ndate: 2023-12-22\n---\n\nIn a world cluttered with notifications, apps, and endless digital noise, embracing digital minimalism has become more crucial than ever. This philosophy isn't about rejecting technology altogether, but rather about being intentional with our digital lives.\n\nHere are three key principles to get started:\n\n1. Identify your core digital needs\n2. Eliminate unnecessary digital clutter\n3. Optimize your remaining tools\n\nBy following these principles, you'll find yourself more focused, productive, and paradoxically, better connected to what truly matters.\n"
     },
     {
       "id": "web-development-trends",
-      "title": "Web Development Trends",
-      "date": "2023-12-23",
-      "content": "---\ntitle: Web Development Trends\ndate: 2023-12-23\n---\n\n# Web Development Trends\n\nThe web development landscape is constantly evolving. Here are some key trends to watch:\n\n## Current Trends\n\n1. AI-Powered Development\n2. WebAssembly\n3. Edge Computing\n4. Progressive Web Apps\n\nStaying updated with these trends helps us build better web applications."
+      "title": "Future of Web Development: 2024 Trends",
+      "date": "2023-12-21",
+      "content": "---\ntitle: Future of Web Development: 2024 Trends\ndate: 2023-12-21\n---\n\nAs we step into 2024, several exciting trends are reshaping web development:\n\n## 🚀 AI-Powered Development Tools\nAI is revolutionizing how we write and debug code. From intelligent code completion to automated testing, AI is becoming an indispensable part of a developer's toolkit.\n\n## 🎨 Design Systems Evolution\nDesign systems are becoming more dynamic and adaptive, with a focus on component-driven development and atomic design principles.\n\n## 🔮 WebAssembly Revolution\nWebAssembly is enabling high-performance applications in the browser, opening new possibilities for web-based software.\n\n## 🌐 Edge Computing\nThe rise of edge computing is changing how we think about web architecture and performance optimization.\n"
     },
     {
       "id": "side-projects",
-      "title": "Side Projects",
-      "date": "2023-12-23",
-      "content": "---\ntitle: Side Projects\ndate: 2023-12-23\n---\n\n# The Value of Side Projects\n\nSide projects are invaluable for personal and professional growth in software development.\n\n## Benefits\n\n1. Learning New Technologies\n2. Building a Portfolio\n3. Exploring Creative Ideas\n4. Potential Career Opportunities\n\nStart small, but start today. Every great project begins with a single line of code."
+      "title": "The Joy of Building Side Projects",
+      "date": "2023-12-20",
+      "content": "---\ntitle: The Joy of Building Side Projects\ndate: 2023-12-20\n---\n\nSide projects are more than just portfolio pieces – they're playgrounds for creativity and learning. They provide a space where we can experiment with new technologies, make mistakes, and grow as developers.\n\n## Why side projects matter:\n\n### 💡 Learning Through Building\nThere's no better way to learn than by doing. Side projects provide hands-on experience with new technologies and concepts.\n\n### 🚀 Creative Freedom\nUnlike client work, side projects give you complete creative control. You can build exactly what you want, how you want.\n\n### 🌱 Personal Growth\nEvery side project teaches something valuable, whether it's a technical skill or project management insight.\n\nRemember: the best side project is one that excites you enough to actually finish it!\n"
     }
   ]
 }
