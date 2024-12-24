@@ -31,9 +31,33 @@ body {
 }
 
 header {
+    position: relative;
     text-align: center;
     margin-bottom: 4rem;
     padding: 2rem 0;
+}
+
+.home-btn {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.home-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.home-btn svg {
+    width: 24px;
+    height: 24px;
 }
 
 h1 {
