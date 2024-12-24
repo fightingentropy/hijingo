@@ -3,7 +3,7 @@ class Blog {
         this.posts = [];
         this.baseUrl = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
             ? 'posts/'  // Local development
-            : '/hijingo/blog/posts/';  // GitHub Pages
+            : '/blog/posts/';  // Production at hijingo.uk
         this.loadPosts();
         this.setupEventListeners();
     }
