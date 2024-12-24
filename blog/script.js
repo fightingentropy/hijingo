@@ -57,6 +57,23 @@ class Blog {
         document.querySelectorAll('.back-btn').forEach(btn => {
             btn.addEventListener('click', () => this.showPostsList());
         });
+        
+        // Add search functionality
+        const searchInput = document.getElementById('search-input');
+        searchInput?.addEventListener('input', (e) => this.handleSearch(e.target.value));
+    }
+
+    handleSearch(query) {
+        query = query.toLowerCase().trim();
+        
+        const filteredPosts = query === '' 
+            ? this.posts 
+            : this.posts.filter(post => {
+                const searchContent = `${post.title} ${post.content}`.toLowerCase();
+                return searchContent.includes(query);
+            });
+            
+        this.renderPosts(filteredPosts);
     }
 
     showPostEditor() {
@@ -116,16 +133,16 @@ class Blog {
         e.target.reset();
     }
 
-    renderPosts() {
+    renderPosts(postsToRender = this.posts) {
         const blogList = document.querySelector('.blog-list');
         blogList.innerHTML = '';
         
-        if (this.posts.length === 0) {
-            blogList.innerHTML = '<p>No posts yet. Create your first post!</p>';
+        if (postsToRender.length === 0) {
+            blogList.innerHTML = '<p>No posts found.</p>';
             return;
         }
 
-        this.posts.forEach(post => {
+        postsToRender.forEach(post => {
             const postElement = document.createElement('div');
             postElement.className = 'blog-post';
             const preview = post.content.split('\n')[0]; // First paragraph as preview
