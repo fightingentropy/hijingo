@@ -1,6 +1,9 @@
 class Blog {
     constructor() {
         this.posts = [];
+        this.baseUrl = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+            ? 'posts/'  // Local development
+            : '/hijingo/blog/posts/';  // GitHub Pages
         this.loadPosts();
         this.setupEventListeners();
     }
@@ -34,7 +37,7 @@ class Blog {
 
             const postPromises = posts.map(async filename => {
                 try {
-                    const response = await fetch(`/hijingo/blog/posts/${filename}`);
+                    const response = await fetch(`${this.baseUrl}${filename}`);
                     if (!response.ok) {
                         console.error(`Failed to load ${filename}:`, response.status, response.statusText);
                         throw new Error(`Failed to load ${filename}: ${response.status} ${response.statusText}`);
