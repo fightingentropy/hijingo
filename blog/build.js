@@ -3,16 +3,16 @@ const path = require('path');
 
 async function buildBlog() {
     try {
-        // Read all files in the posts directory
-        const postsDir = path.join(__dirname, 'posts');
-        const files = await fs.readdir(postsDir);
+        // Read all files in the markdown directory
+        const markdownDir = path.join(__dirname, 'posts', 'markdown');
+        const files = await fs.readdir(markdownDir);
         
         // Filter for markdown files
         const mdFiles = files.filter(file => file.endsWith('.md'));
         
         // Read and process each markdown file
         const posts = await Promise.all(mdFiles.map(async filename => {
-            const content = await fs.readFile(path.join(postsDir, filename), 'utf-8');
+            const content = await fs.readFile(path.join(markdownDir, filename), 'utf-8');
             
             // Parse front matter
             const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
@@ -52,7 +52,7 @@ async function buildBlog() {
         
         // Write to posts.json
         await fs.writeFile(
-            path.join(postsDir, 'posts.json'),
+            path.join(__dirname, 'posts', 'posts.json'),
             JSON.stringify({ posts: validPosts }, null, 2)
         );
         
