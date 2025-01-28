@@ -1,5 +1,4 @@
 # Hijingo
-haha
 
 ## https://hijingo.uk
 
